@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <DUT Name="ST_GestionErreur" Id="{ee027299-9832-4efb-a31f-4b9071bb3c0f}">
+    <Declaration><![CDATA[TYPE ST_GestionErreur :
+STRUCT
+	/// TON 
+	fbTime: TON;
+	iId: DINT;
+	///indique si on a déjà activé l'alarme
+	xActivated: BOOL := FALSE;
+	/// contient l'adresse dans le tableau d'alarmes actives
+	iIdActiv: INT := 0;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

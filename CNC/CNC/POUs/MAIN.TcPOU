@@ -3,10 +3,31 @@
   <POU Name="MAIN" Id="{1e704377-3948-4a60-acf5-cdd6dbd4512e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	xSetError:BOOL;
+	iNiveau:BYTE:=0;
+	TimeBeforError: TIME := T#100MS;
+	iId:INT:=1;
+	iIdParam:INT := 100;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//******************************************
+      <ST><![CDATA[//initialisation du gestionnaire d'alarmes
+fbErrorAdmin.mResetIndex();
+//Refresh du viewer d'alarmes
+fbErrorViewer(fbErrorAdmin:=fbErrorAdmin);
+//quittance des erreurs dans FB_MMA, iEtape=810
+//exemple d'ajout d'une erreur
+fbErrorAdmin.mSetAlaram(xError :=xSetError,
+						iNiveau:=iNiveau,
+						TimeBeforError:=TimeBeforError,
+						iId:=iId,
+						iIdParam:=iIdParam);
+
+
+
+
+
+//******************************************
 //cyclic call of all needed FB
 //******************************************
 
@@ -38,12 +59,43 @@ fbBtn();
 
 //stParam
 //check for active errors
+fbErrorAdmin.mSetAlaram(xError :=fbAct1.stError.xState,
+						iNiveau:=0,
+						TimeBeforError:=T#100MS,
+						iId:=0,
+						iIdParam:=1);
+fbErrorAdmin.mSetAlaram(xError :=fbAct2.stError.xState,
+						iNiveau:=0,
+						TimeBeforError:=T#100MS,
+						iId:=0,
+						iIdParam:=2);
+fbErrorAdmin.mSetAlaram(xError :=fbAct3.stError.xState,
+						iNiveau:=0,
+						TimeBeforError:=T#100MS,
+						iId:=0,
+						iIdParam:=2);
+fbErrorAdmin.mSetAlaram(xError :=fbMotor.xError,
+						iNiveau:=0,
+						TimeBeforError:=T#100MS,
+						iId:=21,
+						iIdParam:=0);
+fbErrorAdmin.mSetAlaram(xError :=fbBtn.xAirPressureOk,
+						iNiveau:=0,
+						TimeBeforError:=T#100MS,
+						iId:=30,
+						iIdParam:=0);
+
+
+
+//******
 IF (fbAct1.stError.xState) THEN
 	stParam.stStatus.xErreur:=TRUE;
 	stParam.stStatus.iId:=fbAct1.stError.iId;
+	
 ELSIF (fbAct2.stError.xState) THEN
 	stParam.stStatus.xErreur:=TRUE;
 	stParam.stStatus.iId:=fbAct2.stError.iId;
+	
 ELSIF (fbAct3.stError.xState) THEN
 	stParam.stStatus.xErreur:=TRUE;
 	stParam.stStatus.iId:=fbAct3.stError.iId;

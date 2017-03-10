@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <DUT Name="ST_CounterError" Id="{0b3e3a37-2acb-4ff4-ac7d-8e8eab28e2e0}">
+    <Declaration><![CDATA[TYPE ST_CounterError :
+STRUCT
+	iLevel0: INT;
+	ilevel1: INT;
+	iLevel2: INT;
+	iActiv: INT;
+	iTotal: INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <DUT Name="ST_InternalError" Id="{19c5d951-584b-4719-b90f-6c946a27c16c}">
+    <Declaration><![CDATA[TYPE ST_InternalError :
+STRUCT
+	xActive: BOOL := FALSE;
+	///active error ID
+	iId: DINT := 0;
+	iParam: DINT := 0;
+	sMess: STRING := '';
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

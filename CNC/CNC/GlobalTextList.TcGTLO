@@ -411,6 +411,33 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"132"</v>
+              <v n="TextDefault">"iId: %d"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"133"</v>
+              <v n="TextDefault">"iIdParam: %d"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"130"</v>
+              <v n="TextDefault">"iNiveau: %d"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"102"</v>
               <v n="TextDefault">"Ir Ecart : %.5f"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -951,6 +978,24 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"129"</v>
+              <v n="TextDefault">"Tableau d'affichage des alarmes"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"128"</v>
+              <v n="TextDefault">"Tableau de gestion des alarmes"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"18"</v>
               <v n="TextDefault">"TachoInput: %.2f"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -984,6 +1029,15 @@
                 <v>Serrage</v>
                 <v>Spannen</v>
                 <v>Tighten</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"131"</v>
+              <v n="TextDefault">"TimeBeforErr: %d"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+                <v></v>
               </l>
             </o>
             <o>

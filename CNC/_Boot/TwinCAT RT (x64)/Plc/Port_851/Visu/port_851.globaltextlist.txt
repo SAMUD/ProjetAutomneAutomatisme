@@ -44,6 +44,9 @@ Id;Default;fr;de;en
 21;Going out;étendre;aus-fahren;extend
 91;h: %s;;;
 48;ID: %d;;;
+132;iId: %d;;;
+133;iIdParam: %d;;;
+130;iNiveau: %d;;;
 102;Ir Ecart : %.5f;;;
 103;Ir Tension: %.2f;;;
 2;LANGUAGE;LANGUE;SPRACHE;LANGUAGE
@@ -104,10 +107,13 @@ Id;Default;fr;de;en
 28;stTension.lrMin : %.2f;;;
 29;stValeur.lrMax : %.2f;;;
 30;stValeur.lrMin : %.2f;;;
+129;Tableau d$'affichage des alarmes;;;
+128;Tableau de gestion des alarmes;;;
 18;TachoInput: %.2f;;;
 95;TCP Busy;;;
 123;TCP Send;;;
 54;Tighten;Serrage;Spannen;Tighten
+131;TimeBeforErr: %d;;;
 125;TRIG    CHECK   GETRES;;;
 124;TRIG CHECK GETRES;;;
 117;User;;;

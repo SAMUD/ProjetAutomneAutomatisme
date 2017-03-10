@@ -1181,6 +1181,7 @@
 		</Io>
 	</Project>
 	<Mappings>
+		<MappingInfo Identifier="{00000000-0012-0101-1000-010110000403}" Id="#x03070010"/>
 		<OwnerA Name="TIPC^CNC^CNC Instance">
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 1 (BK1150)">
 				<Link VarA="PlcTask Inputs^GVL.fbAct1.IxSensIn" VarB="Term 6 (KL1408)^Channel 2^Eingang"/>

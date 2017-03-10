@@ -31,6 +31,30 @@
     <Compile Include="FB_Lib\Conversion\ST_MinMax.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\FB_ErrorAdmin.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\ST_ActivatationError.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\ST_ActivError.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\ST_CounterError.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\ST_GestionErreur.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\ST_InternalError.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\view\FB_ErrorViewer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FB_Lib\ErrorAdmin\view\ST_ErrorView.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FB_Lib\FB_ActionneurSimple\FB_ActionneurSimple.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -153,6 +177,10 @@
       <SubType>Code</SubType>
       <DependentUpon>Visualisierungsmanager.TcVMO</DependentUpon>
     </Compile>
+    <Compile Include="VISUs\Vi_Alarmes.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualisierungsmanager.TcVMO</DependentUpon>
+    </Compile>
     <Compile Include="VISU_TASK.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -161,6 +189,8 @@
     <Folder Include="DUTs" />
     <Folder Include="FB_Lib" />
     <Folder Include="FB_Lib\Conversion" />
+    <Folder Include="FB_Lib\ErrorAdmin" />
+    <Folder Include="FB_Lib\ErrorAdmin\view" />
     <Folder Include="FB_Lib\FB_ActionneurSimple" />
     <Folder Include="FB_Lib\FB_GestionModes" />
     <Folder Include="FB_Lib\FB_GestionModes\IO" />
@@ -229,6 +259,10 @@
       <DefaultResolution>Tc2_TcpIp, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_TcpIp</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Interfaces">
       <DefaultResolution>Tc3_Interfaces, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Interfaces</Namespace>
@@ -255,8 +289,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -308,14 +342,14 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Boolean">System.Boolean</Type>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Boolean">System.Boolean</Type>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

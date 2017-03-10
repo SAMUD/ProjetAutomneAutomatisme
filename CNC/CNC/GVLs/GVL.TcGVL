@@ -26,6 +26,10 @@
 	//include TCP_LIB
 	fbTCP : FB_TCP;
 	
+	//
+	fbErrorAdmin:FB_ErrorAdmin;//gestion des erreurs, messages
+	fbErrorViewer:FB_ErrorViewer;//gestion de l'affichage du tableau
+	
 
 	 
 END_VAR]]></Declaration>

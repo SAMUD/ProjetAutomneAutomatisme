@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <POU Name="FB_ErrorAdmin" Id="{aefe91db-93a1-4802-9cfb-953e33ef017d}" SpecialFunc="None">
+    <Declaration><![CDATA[///*********************************************************************************************************************************************************************
+///*{He-Arc}  {Hôtle de ville 7}   {2400 Le Locle}       Phone: ++ 0041 (0)32 930 13 13     Fax: ++ 0041 (0)32 930 13 14         Email: ingenierie@he-arc.ch
+///*=======================================================================================================================
+///* {Give the complete list of every blocks for a source file with several blocks}
+///*
+///*=======================================================================================================================
+///*Description: Error administration function block
+///*
+///*=======================================================================================================================
+///*Version:        Date:               Author:                           Reason of modification:
+///*1.0                   27.11.11         Fabien Golay              Initial Version 
+///*1.1                                                                 
+///*
+///*
+///***********************************************************************************************************************************************************************
+FUNCTION_BLOCK FB_ErrorAdmin
+VAR_OUTPUT
+	///in error 
+	xInError: BOOL;
+	///error level0
+	xErrorLevel0: BOOL;
+	///error level1 ) 
+	xErrorLevel1: BOOL;
+	///error level2
+	xErrorLevel2: BOOL;
+	///tableau des erreurs actuelles
+	stActError: ARRAY[0..iMaxErrActiv] OF ST_ActivError;
+	///compteur d'erreurs actives
+	stCounter: ST_CounterError;
+END_VAR
+VAR CONSTANT
+	iMaxErrActiv: INT := 19;
+	iMaxErrId: INT := 1000;
+END_VAR
+VAR
+	stError: ST_ActivatationError;
+	stGestion: ARRAY[0..iMaxErrId] OF ST_GestionErreur;
+	/// array of  100 timer type TON boMemDeleteError
+	iIndex: INT;
+	///pour boucle for
+	i: INT;
+	///si !=0 alors on décompte à chaque mResetIndex (représente 1 fois par cycle automate)
+	iInhibSurveille: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="mAckAll" Id="{e6aeeb07-3d24-409c-b4cd-a2f5c6f9a760}">
+      <Declaration><![CDATA[///Quittance des erreurs (toutes)
+{attribute 'object_name' := 'mAckAll'}
+METHOD mAckAll
+VAR_INPUT
+	iInhibCounter: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+
+(*Reset fbtimer error*)
+FOR i:=0 TO iMaxErrActiv DO
+	stActError[i].iId:=0;
+	stActError[i].iParam:=0;
+	stActError[i].iIndexOrigine:=0;
+END_FOR
+//reset du timer
+FOR i:=0 TO iMaxErrId DO
+	//stGestion[i].fbTime(in:=FALSE);
+	stGestion[i].xActivated:=FALSE;
+	stGestion[i].iIdActiv:=0;
+END_FOR
+(*Reseting error*)
+stCounter.iActiv:=0;
+stCounter.ilevel0:=0;
+stCounter.ilevel1:=0;
+stCounter.ilevel2:=0;
+xErrorLevel0:=FALSE;				(*on a des erreurs*)
+xErrorLevel1:=FALSE;				(*on a des erreurs*)
+xErrorLevel2:=FALSE;				(*on a des erreurs*)
+xInError:=FALSE;
+iInhibSurveille:=iInhibCounter;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mAckError" Id="{d6114653-5eba-4a42-a7b3-a0a3a0f0a526}">
+      <Declaration><![CDATA[///Quittance d'une seul erreur selon son ID actif
+{attribute 'object_name' := 'mAckError'}
+METHOD mAckError
+VAR_INPUT
+	iNoIdActiv: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE  stActError[iNoIdActiv].iLevel OF
+	1:IF stCounter.ilevel1>0 THEN stCounter.ilevel1:=stCounter.iLevel1+1;END_IF
+	2:IF stCounter.ilevel2>0 THEN stCounter.ilevel2:=stCounter.iLevel2+1;END_IF
+	ELSE IF stCounter.ilevel0>0 THEN stCounter.ilevel0:=stCounter.iLevel0+1;END_IF
+END_CASE
+
+IF stGestion[iNoIdActiv].iIdActiv>=stCounter.iActiv-1
+	THEN
+		FOR i:=stGestion[iNoIdActiv].iIdActiv TO stCounter.iActiv-1
+			DO
+				stActError[i]:=stActError[i+1];
+				stGestion[iIndex].xActivated:=FALSE;
+		END_FOR
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mActiveError" Id="{6eaf3e5c-5258-4c72-98ae-9f818e02e8e9}">
+      <Declaration><![CDATA[///Méthode privée Activation de l'erreur depuis mSurveille
+{attribute 'object_name' := 'mActiveError'}
+METHOD PRIVATE mActiveError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*Error level 0=>fatal 1=>warning with validation 2=>warning without validation*)
+CASE stError.iNiveau OF
+	1:stCounter.ilevel1:=stCounter.iLevel1+1;
+	2:stCounter.ilevel2:=stCounter.ilevel2+1;
+	ELSE stCounter.ilevel0:=stCounter.ilevel0+1;
+END_CASE
+xInError:=TRUE;
+i:=-1;
+REPEAT
+	i:=i+1;
+	IF stActError[i].iId=0
+		THEN
+			stActError[i].iId:=stError.iId;
+			stActError[i].iParam:=stError.iIdParam;
+			stActError[i].iIndexOrigine:=iIndex;
+			stActError[i].iLevel:=stError.iNiveau;
+			stGestion[iIndex].xActivated:=TRUE;
+			stGestion[iIndex].iIdActiv:=i;
+			stCounter.iActiv:=stCounter.iActiv+1;
+	END_IF
+UNTIL (stActError[i].iId=stError.iId AND stActError[i].iParam=stError.iIdParam)
+		  OR i=iMaxErrActiv
+END_REPEAT;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mInhibeError" Id="{209584ad-5ae4-43ac-9c1e-bbe1b43a3ebd}">
+      <Declaration><![CDATA[///permet d'inhiber une erreur en fonction de son index dans le tableau de surveillance des alarmes
+METHOD mInhibeError
+VAR_INPUT
+	iIndexError: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//réamorcage du timer
+IF iInhibSurveille=0
+	THEN
+		stGestion[iIndexError].fbTime(IN:=FALSE);
+		if stGestion[iIndexError].xActivated
+			then
+				mAckError(stGestion[iIndexError].iIdActiv);
+		END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mRemoveErrorNv2" Id="{a453a98b-ccc0-49ff-8193-dfaf9de2b0b6}">
+      <Declaration><![CDATA[///Efface une erreur de niveau deux dans le tableau des erreurs actives
+{attribute 'object_name' := 'mRemoveErrorNv2'}
+METHOD PRIVATE mRemoveErrorNv2
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF stCounter.iActiv-1>=stGestion[iIndex].iIdActiv AND stCounter.iActiv<iMaxErrActiv THEN
+	FOR i:=stGestion[iIndex].iIdActiv TO stCounter.iActiv-1
+	DO
+		stActError[i]:=stActError[i+1];
+		stGestion[iIndex].xActivated:=FALSE;
+		IF stCounter.ilevel2>0
+			THEN
+				stCounter.ilevel2:=stCounter.ilevel2-1;
+		END_IF
+		IF stCounter.iActiv>0
+			THEN
+				stCounter.iActiv:=stCounter.iActiv-1;
+		END_IF
+	END_FOR
+	ELSE 
+		stCounter.iActiv:=stCounter.iActiv;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mResetIndex" Id="{2d1bac89-bc08-4830-9868-99dd4dbdd3b7}">
+      <Declaration><![CDATA[///reset de l'index, doit être éxécuté au début de la tâche automate
+{attribute 'object_name' := 'mResetIndex'}
+METHOD mResetIndex
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stCounter.iTotal:=iIndex-1;
+iIndex:=0;
+IF iInhibSurveille>0
+	THEN
+		iInhibSurveille:=iInhibSurveille-1;
+END_IF
+
+//contrôle des status d'erreur
+xErrorLevel0:=stCounter.iLevel0>0;
+xErrorLevel1:=stCounter.iLevel1>0;
+xErrorLevel2:=stCounter.iLevel2>0;
+//test si plus aucune erreur
+xInError:=xErrorLevel0 OR xErrorLevel1 OR xErrorLevel2;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mSetAlaram" Id="{c4e64f01-90cc-4cd9-adc4-7883c5f81757}">
+      <Declaration><![CDATA[///ajouter la surveillance pour un ID
+{attribute 'object_name' := 'mSetAlaram'}
+METHOD mSetAlaram
+VAR_INPUT
+	/// Set error, starting fbtimer counter
+	xError: BOOL;
+	///error level
+	iNiveau: BYTE;
+	/// time before error  
+	TimeBeforError: TIME;
+	/// error id 
+	iId: DINT;
+	/// error parameter 
+	iIdParam: DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF iInhibSurveille=0
+	THEN
+		stError.xError:=xError;
+		stError.iNiveau:=iNiveau;
+		stError.TimeBeforError:=TimeBeforError;
+		stError.iIdParam:=iIdParam;
+		stError.iId:=iId;
+		mSurveille();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mSurveille" Id="{dc5beee5-50e8-4d2a-a960-90428fdeb6a7}">
+      <Declaration><![CDATA[///fonction privée de surveillance des états, pour activation
+{attribute 'object_name' := 'mSurveille'}
+METHOD PRIVATE mSurveille
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(********************************************************************************************************************************************************)
+(*											Active fbtimer											 *)
+(********************************************************************************************************************************************************)
+stGestion[iIndex].fbTime(IN:=stError.xError, PT:= stError.TimeBeforError );
+stGestion[iIndex].iId:=stError.iId;
+(********************************************************************************************************************************************************)
+(*									Write error										 *)
+(********************************************************************************************************************************************************)
+//si l'activation n'est pas encore faite et que l'alarme apparait
+IF stGestion[iIndex].fbTime.Q and not stGestion[iIndex].xActivated
+		THEN
+		//activation de l'erreur dans le tableau
+		mActiveError();
+	//test si suppression
+	ELSIF stGestion[iIndex].xActivated AND NOT stError.xError
+				AND stError.iNiveau=2
+		THEN
+		//suppression de l'erreur si niveau 2
+		 mRemoveErrorNv2();
+	END_IF
+iIndex:=iIndex+1;
+IF iIndex>iMaxErrId THEN
+	iIndex:=0;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="pGetIndex" Id="{8e58379f-a874-436b-af71-a5f473be7600}">
+      <Declaration><![CDATA[///retourne la valeur actuel de l'index du tableau de surveillance
+PROPERTY pGetIndex : INT
+]]></Declaration>
+      <Get Name="Get" Id="{527093a3-280a-4cae-8b24-2a9855bb8fc5}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+pGetIndex:=iIndex;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c9e580fc-5aa4-4ced-ae4d-275457ad2bb7}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

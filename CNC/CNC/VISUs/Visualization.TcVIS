@@ -1076,13 +1076,13 @@
                                           <v>TL_ElementProperties.Desc_Text</v>
                                           <v>DisplayTextId</v>
                                           <v>TL_ElementProperties.Text</v>
-                                          <v>Visu_TypeString</v>
+                                          <v>AllocateText</v>
                                           <v></v>
                                           <v>''DOCU__COMMENT</v>
                                           <v> The text, the user entered resp. can modify.</v>
                                           <v>DirectlyAssignable</v>
                                           <v></v>
-                                          <v>AllocateText</v>
+                                          <v>Visu_TypeString</v>
                                           <v></v>
                                         </d>
                                         <v n="ConvDone">false</v>
@@ -1191,13 +1191,13 @@
                                           <v>TL_ElementProperties.Desc_StaticTextsTooltipOnly</v>
                                           <v>DisplayTextId</v>
                                           <v>TL_ElementProperties.Tooltip</v>
-                                          <v>Visu_TypeString</v>
+                                          <v>AllocateText</v>
                                           <v></v>
                                           <v>''DOCU__COMMENT</v>
                                           <v> The tooltip, the user entered resp. can modify.</v>
                                           <v>DirectlyAssignable</v>
                                           <v></v>
-                                          <v>AllocateText</v>
+                                          <v>Visu_TypeString</v>
                                           <v></v>
                                         </d>
                                         <v n="ConvDone">false</v>
@@ -1597,13 +1597,13 @@
                                             <v>TL_ElementProperties.Desc_Text</v>
                                             <v>DisplayTextId</v>
                                             <v>TL_ElementProperties.Text</v>
-                                            <v>Visu_TypeString</v>
+                                            <v>AllocateText</v>
                                             <v></v>
                                             <v>''DOCU__COMMENT</v>
                                             <v> The text, the user entered resp. can modify.</v>
                                             <v>DirectlyAssignable</v>
                                             <v></v>
-                                            <v>AllocateText</v>
+                                            <v>Visu_TypeString</v>
                                             <v></v>
                                           </d>
                                           <v n="ConvDone">false</v>
@@ -1712,13 +1712,13 @@
                                             <v>TL_ElementProperties.Desc_StaticTextsTooltipOnly</v>
                                             <v>DisplayTextId</v>
                                             <v>TL_ElementProperties.Tooltip</v>
-                                            <v>Visu_TypeString</v>
+                                            <v>AllocateText</v>
                                             <v></v>
                                             <v>''DOCU__COMMENT</v>
                                             <v> The tooltip, the user entered resp. can modify.</v>
                                             <v>DirectlyAssignable</v>
                                             <v></v>
-                                            <v>AllocateText</v>
+                                            <v>Visu_TypeString</v>
                                             <v></v>
                                           </d>
                                           <v n="ConvDone">false</v>
@@ -2117,13 +2117,13 @@
                                             <v>TL_ElementProperties.Desc_Text</v>
                                             <v>DisplayTextId</v>
                                             <v>TL_ElementProperties.Text</v>
-                                            <v>Visu_TypeString</v>
+                                            <v>AllocateText</v>
                                             <v></v>
                                             <v>''DOCU__COMMENT</v>
                                             <v> The text, the user entered resp. can modify.</v>
                                             <v>DirectlyAssignable</v>
                                             <v></v>
-                                            <v>AllocateText</v>
+                                            <v>Visu_TypeString</v>
                                             <v></v>
                                           </d>
                                           <v n="ConvDone">false</v>
@@ -2232,13 +2232,13 @@
                                             <v>TL_ElementProperties.Desc_StaticTextsTooltipOnly</v>
                                             <v>DisplayTextId</v>
                                             <v>TL_ElementProperties.Tooltip</v>
-                                            <v>Visu_TypeString</v>
+                                            <v>AllocateText</v>
                                             <v></v>
                                             <v>''DOCU__COMMENT</v>
                                             <v> The tooltip, the user entered resp. can modify.</v>
                                             <v>DirectlyAssignable</v>
                                             <v></v>
-                                            <v>AllocateText</v>
+                                            <v>Visu_TypeString</v>
                                             <v></v>
                                           </d>
                                           <v n="ConvDone">false</v>
@@ -2637,13 +2637,13 @@
                                             <v>TL_ElementProperties.Desc_Text</v>
                                             <v>DisplayTextId</v>
                                             <v>TL_ElementProperties.Text</v>
-                                            <v>Visu_TypeString</v>
+                                            <v>AllocateText</v>
                                             <v></v>
                                             <v>''DOCU__COMMENT</v>
                                             <v> The text, the user entered resp. can modify.</v>
                                             <v>DirectlyAssignable</v>
                                             <v></v>
-                                            <v>AllocateText</v>
+                                            <v>Visu_TypeString</v>
                                             <v></v>
                                           </d>
                                           <v n="ConvDone">false</v>
@@ -2752,13 +2752,13 @@
                                             <v>TL_ElementProperties.Desc_StaticTextsTooltipOnly</v>
                                             <v>DisplayTextId</v>
                                             <v>TL_ElementProperties.Tooltip</v>
-                                            <v>Visu_TypeString</v>
+                                            <v>AllocateText</v>
                                             <v></v>
                                             <v>''DOCU__COMMENT</v>
                                             <v> The tooltip, the user entered resp. can modify.</v>
                                             <v>DirectlyAssignable</v>
                                             <v></v>
-                                            <v>AllocateText</v>
+                                            <v>Visu_TypeString</v>
                                             <v></v>
                                           </d>
                                           <v n="ConvDone">false</v>
@@ -11455,7 +11455,7 @@
                 <v n="VisualElementIdentifier">"GenElemInst_242"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="VisuUserMgmtInputAction[]">
                   <v>OnMouseClick</v>
                   <a cet="VisuUserMgmtInputAction">
                     <o>
@@ -11490,6 +11490,176 @@
                     <v n="AccessRight" t="VisuAccessRightType">Invisible</v>
                   </o>
                 </l>
+              </o>
+              <o>
+                <a n="ConfiguredComplexInputs" et="ComplexInput" />
+                <l n="Elements" t="ArrayList" />
+                <n n="VisualElementDescription" />
+                <o n="VisualElemMemberList" t="VisualElemMemberList">
+                  <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                    <o>
+                      <v n="Id">571893170L</v>
+                      <v n="Value">""</v>
+                    </o>
+                    <o>
+                      <v n="Id">2340015797L</v>
+                      <v n="Value">"HCENTER"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2565699834L</v>
+                      <v n="Value">"VCENTER"</v>
+                    </o>
+                    <o>
+                      <v n="Id">4134387352L</v>
+                      <v n="Value">"NONE"</v>
+                    </o>
+                    <o>
+                      <v n="Id">1603690730L</v>
+                      <v n="Value">"Arial"</v>
+                    </o>
+                    <o>
+                      <v n="Id">4253639993L</v>
+                      <v n="Value" t="Int16">12</v>
+                    </o>
+                    <o>
+                      <v n="Id">2729990903L</v>
+                      <v n="Value">0U</v>
+                    </o>
+                    <o>
+                      <v n="Id">1213979116L</v>
+                      <v n="Value">0U</v>
+                    </o>
+                    <o>
+                      <v n="Id">3488306084L</v>
+                      <v n="Value">4278190080U</v>
+                    </o>
+                    <o>
+                      <v n="Id">1647042231L</v>
+                      <v n="Value">"&lt;toggle/tap variable&gt;"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2812299069L</v>
+                      <v n="Value">4294967295U</v>
+                    </o>
+                    <o>
+                      <v n="Id">494569607L</v>
+                      <v n="Value">4278190080U</v>
+                    </o>
+                    <o>
+                      <v n="Id">1649127785L</v>
+                      <v n="Value">260</v>
+                    </o>
+                    <o>
+                      <v n="Id">357335551L</v>
+                      <v n="Value">254</v>
+                    </o>
+                    <o>
+                      <v n="Id">2422045748L</v>
+                      <v n="Value">150</v>
+                    </o>
+                    <o>
+                      <v n="Id">2134141914L</v>
+                      <v n="Value">30</v>
+                    </o>
+                    <o>
+                      <v n="Id">1651471674L</v>
+                      <v n="Value">true</v>
+                    </o>
+                    <o>
+                      <v n="Id">2341735680L</v>
+                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
+                        <o>
+                          <v n="Color">-2830136</v>
+                          <v n="CanonicalName">"Element-Control-Color"</v>
+                        </o>
+                      </l>
+                    </o>
+                    <o>
+                      <v n="Id">438423234L</v>
+                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
+                        <o>
+                          <v n="Color">-2830136</v>
+                          <v n="CanonicalName">"Element-Alarm-Fill-Color"</v>
+                        </o>
+                      </l>
+                    </o>
+                    <o>
+                      <v n="Id">3729828405L</v>
+                      <l n="Value" t="ArrayList" cet="NamedStyleFont">
+                        <o>
+                          <v n="FontStyle">0</v>
+                          <v n="ExplicitColor">-16777216</v>
+                          <v n="CanonicalName">"Font-Standard"</v>
+                          <v n="FontName">"Arial"</v>
+                          <v n="FontSize">12</v>
+                          <o n="NamedColor" t="NamedStyleColor">
+                            <v n="Color">-16777216</v>
+                            <v n="CanonicalName">"Element-Button-FontColor"</v>
+                          </o>
+                        </o>
+                      </l>
+                    </o>
+                    <o>
+                      <v n="Id">550940142L</v>
+                      <v n="Value">335</v>
+                    </o>
+                    <o>
+                      <v n="Id">1473355128L</v>
+                      <v n="Value">269</v>
+                    </o>
+                    <o>
+                      <v n="Id">493260384L</v>
+                      <v n="Value">4294967295U</v>
+                    </o>
+                    <o>
+                      <v n="Id">135947015L</v>
+                      <v n="Value">4278190080U</v>
+                    </o>
+                    <o>
+                      <v n="Id">2678395525L</v>
+                      <v n="Value">1U</v>
+                    </o>
+                    <o>
+                      <v n="Id">2478807622L</v>
+                      <v n="Value">""</v>
+                    </o>
+                    <o>
+                      <v n="Id">390574330L</v>
+                      <v n="Value">"Open Admin Page"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2597686782L</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">823443203L</v>
+                      <v n="Value">"68"</v>
+                    </o>
+                  </l>
+                </o>
+                <v n="VisualElementName">"Button"</v>
+                <v n="VisualElementTypeName">"VisuFbElemButton"</v>
+                <v n="VisualElementIsRectangle">true</v>
+                <v n="VisualElementIdentifier">"GenElemInst_244"</v>
+                <n n="VisualElementOfflinePaintCommands" />
+                <n n="VisualElementFrameInformation" />
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                  <v>OnMouseClick</v>
+                  <a cet="ChangeVisuInputAction">
+                    <o>
+                      <v n="AssignExpr">""</v>
+                      <n n="Assign" />
+                      <v n="Assign33">"Vi_Alarmes"</v>
+                      <v n="Type" t="ChangeVisuType">Assignment</v>
+                    </o>
+                  </a>
+                </d>
+                <v n="VisualElementIdentification">{7d5338b3-b07d-4d84-9465-f0c35009a9d3}</v>
+                <v n="VisualElementOwningObjectGuid">{1e4c2f99-d035-41f9-adba-3d4322eca24e}</v>
+                <a n="LMGuids" et="Guid" />
+                <d n="SubElements" t="Hashtable" />
+                <v n="VisualElementId">240</v>
+                <l n="UserManagementAccessRights" t="ArrayList" />
               </o>
             </l>
             <v n="BackgroundBitmapId">""</v>
@@ -11591,10 +11761,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>0a70654c-cf65-4510-af30-fe929b1d89f8</v>
-                <v>FB_Exit</v>
-                <v>7a9f7535-ea63-418a-9ee2-150ff3180062</v>
                 <v>FB_Reinit</v>
                 <v>0259f01a-cbd7-4e49-aae0-23ff1a82ad0a</v>
+                <v>FB_Exit</v>
+                <v>7a9f7535-ea63-418a-9ee2-150ff3180062</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{7c735c9d-8d40-40cb-a1cb-25ac2e3577a1}</v>
@@ -11638,7 +11808,7 @@
             </o>
             <v n="DialogDut">{12d7adcb-885b-486c-9c86-547070185f47}</v>
           </o>
-          <v n="LastUsedIdForIdentifier">242</v>
+          <v n="LastUsedIdForIdentifier">244</v>
           <o n="TextDocument" t="TextDocument">
             <a n="TextLines" cet="TextLine">
               <o>

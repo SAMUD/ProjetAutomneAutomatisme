@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <DUT Name="ST_ActivError" Id="{b3bb96d3-75bf-40dc-a01a-317d9214fbe3}">
+    <Declaration><![CDATA[TYPE ST_ActivError :
+STRUCT
+	///active error ID
+	iId: DINT := 0;
+	iParam: DINT := 0;
+	///active error parameter
+	iIndexOrigine: INT := 0;
+	iLevel: BYTE := 0;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

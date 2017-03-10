@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <POU Name="FB_ErrorViewer" Id="{0bdf1559-f19c-4d8f-bed7-ac21c4a6aa9e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ErrorViewer
+VAR_INPUT
+	iLangue:INT;
+END_VAR
+VAR_OUTPUT
+	stAcTime:TIMESTRUCT;
+	astErrorView: ARRAY [0..iMaxErrActiv]OF ST_ErrorView;
+END_VAR
+VAR_IN_OUT
+	fbErrorAdmin:FB_ErrorAdmin;
+END_VAR
+VAR CONSTANT
+	iMaxErrActiv: INT := 19;
+END_VAR
+VAR
+	fbNTGetTime:NT_GetTime;
+	fbEtape:FB_Etape;
+	i:INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR i:=0 TO iMaxErrActiv DO
+	IF astErrorView[i].id<>fbErrorAdmin.stActError[i].iId 
+		OR astErrorView[i].idparam<>fbErrorAdmin.stActError[i].iParam THEN
+		mSetError(i);
+	END_IF
+END_FOR
+
+fbEtape.mActualisation(FALSE,FALSE);
+CASE fbEtape.iNo OF
+	0://start read
+		fbEtape.piVal:=100;
+	100://start
+		IF fbNTGetTime.BUSY THEN
+			fbEtape.piVal:=110;
+		END_IF
+	110://wait end 
+		IF NOT fbNTGetTime.BUSY
+			THEN
+				fbEtape.piVal:=120;
+		END_IF
+	120:IF NOT fbNTGetTime.ERR THEN
+			stAcTime:=fbNTGetTime.TIMESTR;
+		END_IF
+		fbEtape.tTimeQ:=T#1S;
+		fbEtape.piVal:=130;
+	130:IF fbEtape.xTimeQ THEN
+		fbEtape.piVal:=100;
+	END_IF
+END_CASE
+
+//fonction start dans la boucle
+fbNTGetTime(NETID:='',START:=fbEtape.iNo=100,TMOUT:=T#2S);
+]]></ST>
+    </Implementation>
+    <Method Name="mGetActionneurName" Id="{544b7ae0-6eba-43e9-bca8-2f16f4c5406f}">
+      <Declaration><![CDATA[METHOD mGetActionneurName : STRING
+VAR_INPUT
+	iIdParam:DINT;
+END_VAR
+VAR
+	sMess:STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE iIdParam OF
+	1:sMess:='Actionneur 1';
+	2:sMess:='Actionneur 2';
+	3:sMess:='Actionneur 3';
+	ELSE
+		sMess:='Actionneur sans nom';
+END_CASE
+
+mGetActionneurName:=sMess;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mGetErrorMess" Id="{a586b775-76e7-49d2-90d3-5f44ca55392f}">
+      <Declaration><![CDATA[METHOD mGetErrorMess : STRING
+VAR_INPUT
+	id:DINT;
+	iIdParam:DINT;
+END_VAR
+VAR
+	sMess:STRING;
+	iOffset:INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE iLangue OF
+	//fançais
+	0:iOffset:=0;
+	//allemand
+	1:iOffset:=10000;
+	//anglais
+	2:iOffset:=20000;
+	ELSE
+		iOffset:=0;
+END_CASE
+//transformation date et heure, possible également avec Systemtime_to_string()
+sMess:=CONCAT(sMess,WORD_TO_STRING(stAcTime.wDay));
+sMess:=CONCAT(sMess,'.');
+sMess:=CONCAT(sMess,WORD_TO_STRING(stAcTime.wMonth));
+sMess:=CONCAT(sMess,'.');
+sMess:=CONCAT(sMess,WORD_TO_STRING(stAcTime.wYear));
+sMess:=CONCAT(sMess,', ');
+sMess:=CONCAT(sMess,WORD_TO_STRING(stAcTime.wHour));
+sMess:=CONCAT(sMess,':');
+sMess:=CONCAT(sMess,WORD_TO_STRING(stAcTime.wMinute));
+sMess:=CONCAT(sMess,':');
+sMess:=CONCAT(sMess,WORD_TO_STRING(stAcTime.wSecond));
+sMess:=CONCAT(sMess,', ');
+mGetErrorMess:=sMess;
+CASE id OF
+	//français
+	0: sMess:='Erreur 0';
+	1: sMess:='Erreur 1';
+	3: sMess:='Arrêt d urgence';
+	10:sMess:='Autorisation refusée pour action rentrer';
+		
+	11:sMess:='Autorisation refusée pour action sortir';
+		sMess:=CONCAT(sMess,', ');
+		sMess:=CONCAT(sMess,mGetActionneurName(iIdParam));
+	20:sMess:='Erreur de timeout rentre';
+		sMess:=CONCAT(sMess,', ');
+		sMess:=CONCAT(sMess,mGetActionneurName(iIdParam));
+	21:sMess:='Erreur de Moteur';
+		sMess:=CONCAT(sMess,', ');
+		sMess:=CONCAT(sMess,mGetActionneurName(iIdParam));
+	30:sMess:='Erreur de Pression air';
+		sMess:=CONCAT(sMess,', ');
+		sMess:=CONCAT(sMess,mGetActionneurName(iIdParam));
+	31:sMess:='Double consignes, xSetSort=1 et xSetRentre=1';
+		sMess:=CONCAT(sMess,', ');
+		sMess:=CONCAT(sMess,mGetActionneurName(iIdParam));
+	40:sMess:='Erreur perte signal FDC rentre';
+		sMess:=CONCAT(sMess,', ');
+		sMess:=CONCAT(sMess,mGetActionneurName(iIdParam));
+	41:sMess:='Erreur perte signal FDC sort';
+		sMess:=CONCAT(sMess,', ');
+		sMess:=CONCAT(sMess,mGetActionneurName(iIdParam));
+	//allemand
+	10000: sMess:='Erreur 0';
+	10001: sMess:='Erreur 1';
+	//anglais
+	20000: sMess:='Erreur 0';
+	20001: sMess:='Erreur 1';
+	ELSE
+		sMess:='Le message n existe pas';
+END_CASE
+
+mGetErrorMess:=concat(mGetErrorMess,sMess);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mSetError" Id="{fb3a342d-9c19-42b0-91d1-22c902b05491}">
+      <Declaration><![CDATA[METHOD PRIVATE mSetError : BOOL
+VAR_INPUT
+	i:INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[astErrorView[i].id:=fbErrorAdmin.stActError[i].iId;
+astErrorView[i].idparam:=fbErrorAdmin.stActError[i].iParam;
+IF astErrorView[i].id=0 THEN
+		//vider le message
+		astErrorView[i].sMess:='';
+	ELSE
+		//lecture du message d'erreur
+		astErrorView[i].sMess:=mGetErrorMess(astErrorView[i].id, astErrorView[i].idparam);
+END_IF
+
+
+//gestion du fichier de log
+//mLogError();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
